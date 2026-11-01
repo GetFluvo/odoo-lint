@@ -8,7 +8,7 @@ Lint addons directories or single files.
 odl check [PATHS]... [--version VERSION] [--config FILE]
           [--select RULES] [--ignore RULES] [--output-format FORMAT]
           [--fix] [--unsafe-fixes] [--diff] [--force-exclude] [-v] [-q]
-          [--exit-zero] [--addons-path DIRS] [--statistics]
+          [--exit-zero] [--addons-path DIRS] [--statistics] [--show-fixes]
 ```
 
 `PATHS`
@@ -52,6 +52,17 @@ list copied from a `.pylintrc` works.
 `--diff`
 : Show the fixes as a unified diff instead of writing them. Exits with `1`
 when a file would change.
+
+`--show-fixes`
+: With `--fix` or `--diff`, list the fixes per file and rule, the most
+frequent first:
+
+```text
+Fixed 3 violation(s):
+- my_module/models/partner.py:
+    2 × W8161 (prefer-env-translation)
+    1 × W8113 (attribute-string-redundant)
+```
 
 `--force-exclude`
 : Apply `exclude` from the configuration to files and folders given on the

@@ -4,7 +4,8 @@ use crate::diagnostics::Violation;
 use crate::fix::Applicability;
 use crate::rules::{self, Rule};
 use serde_json::json;
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
+use std::path::{Path, PathBuf};
 
 /// Base URL of the rule pages in the documentation.
 const RULE_DOCS_URL: &str = "https://odoo-lint.readthedocs.io/en/latest/rules/";
@@ -113,6 +114,29 @@ pub fn statistics_text(statistics: &[Statistic]) -> String {
             )
         })
         .collect()
+}
+
+/// `--show-fixes`: the fixes applied per file, the most frequent rule first,
+/// under `heading` ("Fixed 3 violation(s):").
+pub fn fixes_text(heading: &str, applied: &[(PathBuf, String, String)]) -> String {
+    let mut by_file: BTreeMap<&Path, BTreeMap<(&str, &str), usize>> = BTreeMap::new();
+    for (file, code, name) in applied {
+        *by_file
+            .entry(file)
+            .or_default()
+            .entry((code.as_str(), name.as_str()))
+            .or_default() += 1;
+    }
+    let mut out = format!("{heading}\n");
+    for (file, rules) in by_file {
+        out.push_str(&format!("- {}:\n", file.display()));
+        let mut rules: Vec<_> = rules.into_iter().collect();
+        rules.sort_by(|(a, a_count), (b, b_count)| b_count.cmp(a_count).then_with(|| a.cmp(b)));
+        for ((code, name), count) in rules {
+            out.push_str(&format!("    {count} × {code} ({name})\n"));
+        }
+    }
+    out
 }
 
 fn pretty(value: &serde_json::Value) -> String {
@@ -361,6 +385,22 @@ mod tests {
         assert_eq!(
             render(OutputFormat::Github, &[violation()]),
             "::warning file=addons/a%2Cb/__manifest__.py,line=4,col=5,title=C8101 (manifest-required-author)::One of the following authors must be present in manifest: 'X'\n"
+        );
+    }
+
+    #[test]
+    fn fixes_per_file_most_frequent_first() {
+        let fix = |file: &str, code: &str, name: &str| (PathBuf::from(file), code.to_string(), name.to_string());
+        let applied = [
+            fix("b.py", "W8113", "attribute-string-redundant"),
+            fix("a.py", "W8113", "attribute-string-redundant"),
+            fix("a.py", "W8161", "prefer-env-translation"),
+            fix("a.py", "W8161", "prefer-env-translation"),
+        ];
+        assert_eq!(
+            fixes_text("Fixed 4 violation(s):", &applied),
+            "Fixed 4 violation(s):\n- a.py:\n    2 × W8161 (prefer-env-translation)\n    \
+             1 × W8113 (attribute-string-redundant)\n- b.py:\n    1 × W8113 (attribute-string-redundant)\n"
         );
     }
 }

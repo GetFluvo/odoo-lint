@@ -281,6 +281,23 @@ def test_diff_and_fix(project: Path) -> None:
     assert again.stdout == ""
 
 
+def test_show_fixes(project: Path) -> None:
+    """`--show-fixes` lists the fixes per file and rule."""
+    module = make_module(project, "acme_sale", "Acme Corp")
+    manifest = module / "__manifest__.py"
+    manifest.write_text(manifest.read_text().replace("}\n", "    'active': True,\n}\n"))
+    listed = f"- {manifest}:\n    1 \u00d7 C8116 (manifest-superfluous-key)\n"
+
+    diff = run_odl("check", str(module), "--select", "C8116", "--diff", "--show-fixes")
+    assert f"Would fix 1 violation(s):\n{listed}" in diff.stderr
+
+    fixed = run_odl("check", str(module), "--select", "C8116", "--fix", "--show-fixes")
+    assert f"Fixed 1 violation(s):\n{listed}" in fixed.stdout
+
+    alone = run_odl("check", str(module), "--show-fixes")
+    assert alone.returncode == 2
+
+
 def test_force_exclude(project: Path) -> None:
     """Explicit files are linted unless `--force-exclude` applies `exclude`."""
     module = make_module(project, "legacy_sale", "Someone Else")

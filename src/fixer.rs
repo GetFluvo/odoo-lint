@@ -3,7 +3,7 @@
 //! the caller writes the changed files or shows a diff.
 
 use crate::diagnostics::Violation;
-use crate::fix::{apply_edits, select_non_overlapping, Edit, FixMode};
+use crate::fix::{apply_edits, select_non_overlapping, Edit, Fix, FixMode};
 use crate::linter::{collect_files, lint_files_with, lint_units};
 use crate::settings::Settings;
 use crate::sources::{normalize_newlines, Sources};
@@ -19,6 +19,8 @@ pub struct FixResult {
     pub remaining: Vec<Violation>,
     /// Number of fixes applied.
     pub fixed: usize,
+    /// The fixes applied: the file of the finding, its code and name.
+    pub applied: Vec<(PathBuf, String, String)>,
     /// Changed files: path, contents before fixing, new contents.
     pub changed: Vec<(PathBuf, String, String)>,
     /// Files to copy, `(from, to)`: binary files the fixes replace.
@@ -78,11 +80,16 @@ pub fn fix_paths(paths: &[PathBuf], settings: &Settings, mode: FixMode) -> FixRe
 pub fn fix_paths_with(paths: &[PathBuf], settings: &Settings, mode: FixMode, sources: &Sources) -> FixResult {
     let mut originals: HashMap<PathBuf, String> = HashMap::new();
     let mut copies: Vec<(PathBuf, PathBuf)> = Vec::new();
-    let mut fixed = 0;
+    let mut applied: Vec<(PathBuf, String, String)> = Vec::new();
     let files = collect_files(paths, settings);
     let units = lint_units(&files, sources);
     let mut violations = lint_files_with(&files, settings, sources);
     for _ in 0..MAX_PASSES {
+        // The rule of each fix, by the fix's address.
+        let rules: HashMap<*const Fix, (&str, &str)> = violations
+            .iter()
+            .filter_map(|v| Some((std::ptr::from_ref(v.fix.as_ref()?), (v.code.as_str(), v.name.as_str()))))
+            .collect();
         let candidates = violations.iter().filter_map(|v| {
             let fix = v.fix.as_ref().filter(|f| mode.allows(f.applicability))?;
             // A copy is done in the end; the file keeps reporting until then.
@@ -129,16 +136,16 @@ pub fn fix_paths_with(paths: &[PathBuf], settings: &Settings, mode: FixMode, sou
             }
         }
         // A fix whose edits changed nothing (already applied) is not counted.
-        fixed += chosen
-            .iter()
-            .filter(|(file, fix)| {
-                fix.copy.is_some()
-                    || fix
-                        .edits
-                        .iter()
-                        .any(|e| changed_paths.contains(e.path.as_ref().unwrap_or(file)))
-            })
-            .count();
+        for (file, fix) in &chosen {
+            let changed = fix.copy.is_some()
+                || fix
+                    .edits
+                    .iter()
+                    .any(|e| changed_paths.contains(e.path.as_ref().unwrap_or(file)));
+            if let (true, Some((code, name))) = (changed, rules.get(&std::ptr::from_ref(*fix))) {
+                applied.push((file.clone(), (*code).to_string(), (*name).to_string()));
+            }
+        }
         if changed_units.is_empty() {
             break;
         }
@@ -179,7 +186,8 @@ pub fn fix_paths_with(paths: &[PathBuf], settings: &Settings, mode: FixMode, sou
     copies.sort();
     FixResult {
         remaining: violations,
-        fixed,
+        fixed: applied.len(),
+        applied,
         changed,
         copies,
     }
