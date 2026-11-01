@@ -135,6 +135,9 @@ struct CheckArgs {
     /// Count the findings per rule instead of listing them (text or JSON)
     #[arg(long, conflicts_with = "diff")]
     statistics: bool,
+    /// With --fix or --diff, list the fixes per file and rule
+    #[arg(long)]
+    show_fixes: bool,
 }
 
 /// The options of `odl upgrade-check`.
@@ -307,6 +310,9 @@ fn check(args: CheckArgs) -> Outcome {
     if args.statistics && !matches!(args.output_format, OutputFormat::Text | OutputFormat::Json) {
         return Err("--statistics prints text or JSON".to_string());
     }
+    if args.show_fixes && !(args.fix || args.diff) {
+        return Err("--show-fixes lists what --fix or --diff fixes".to_string());
+    }
     let missing = linter::missing_paths(&args.paths);
     if !missing.is_empty() {
         let missing: Vec<String> = missing
@@ -348,13 +354,17 @@ fn check(args: CheckArgs) -> Outcome {
     if args.diff {
         let result = fixer::fix_paths(paths, &settings, mode);
         print!("{}", result.diff());
+        if args.show_fixes {
+            let heading = format!("Would fix {} violation(s):", result.fixed);
+            eprint!("{}", output::fixes_text(&heading, &result.applied));
+        }
         eprintln!("{} fix(es) would change {} file(s).", result.fixed, result.files());
         return Ok(found(result.files() > 0 && !args.exit_zero));
     }
     let (violations, fixed) = if args.fix {
-        let result = fixer::fix_paths(paths, &settings, mode);
+        let mut result = fixer::fix_paths(paths, &settings, mode);
         result.write().map_err(|err| err.to_string())?;
-        (result.remaining, Some(result.fixed))
+        (std::mem::take(&mut result.remaining), Some(result))
     } else {
         (linter::lint_paths(paths, &settings), None)
     };
@@ -373,9 +383,20 @@ fn check(args: CheckArgs) -> Outcome {
     } else {
         print!("{}", output::render(args.output_format, &violations));
     }
-    if args.output_format == OutputFormat::Text && !args.quiet {
-        if let Some(fixed) = fixed {
-            println!("Fixed {fixed} violation(s).");
+    let summary = args.output_format == OutputFormat::Text && !args.quiet;
+    if let (false, true, Some(fixed)) = (summary, args.show_fixes, &fixed) {
+        // stdout holds the findings only: the fixes go to stderr.
+        let heading = format!("Fixed {} violation(s):", fixed.fixed);
+        eprint!("{}", output::fixes_text(&heading, &fixed.applied));
+    }
+    if summary {
+        if let Some(fixed) = &fixed {
+            if args.show_fixes && fixed.fixed > 0 {
+                let heading = format!("Fixed {} violation(s):", fixed.fixed);
+                print!("{}", output::fixes_text(&heading, &fixed.applied));
+            } else {
+                println!("Fixed {} violation(s).", fixed.fixed);
+            }
         }
         if violations.is_empty() {
             println!("✨ No violations found!");
