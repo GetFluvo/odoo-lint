@@ -42,5 +42,5 @@ parity
 roadmap
 development
 License <license>
-Changelog <https://github.com/bosd/odoo-lint/releases>
+Changelog <https://github.com/GetFluvo/odoo-lint/releases>
 ```

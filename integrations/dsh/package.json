@@ -12,7 +12,7 @@
   "homepage": "https://odoo-lint.readthedocs.io",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bosd/odoo-lint.git",
+    "url": "git+https://github.com/GetFluvo/odoo-lint.git",
     "directory": "integrations/dsh"
   },
   "license": "MIT",

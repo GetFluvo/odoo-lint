@@ -7,7 +7,7 @@
     "name": "bosd"
   },
   "homepage": "https://odoo-lint.readthedocs.io",
-  "repository": "https://github.com/bosd/odoo-lint",
+  "repository": "https://github.com/GetFluvo/odoo-lint",
   "license": "MIT",
   "keywords": ["odoo", "lint", "pylint-odoo", "oca", "translations", "po"]
 }

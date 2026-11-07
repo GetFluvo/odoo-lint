@@ -4,7 +4,7 @@ description = "Odoo linting: pylint-odoo and OCA checks as you type, with quick 
 version = "0.1.1"
 schema_version = 1
 authors = ["bosd"]
-repository = "https://github.com/bosd/odoo-lint"
+repository = "https://github.com/GetFluvo/odoo-lint"
 
 [language_servers.odoo-lint]
 name = "odoo-lint"

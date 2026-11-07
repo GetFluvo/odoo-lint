@@ -9,7 +9,7 @@ use zed_extension_api::settings::LspSettings;
 use zed_extension_api::{self as zed, LanguageServerId, LanguageServerInstallationStatus, Result};
 
 const SERVER: &str = "odoo-lint";
-const REPO: &str = "bosd/odoo-lint";
+const REPO: &str = "GetFluvo/odoo-lint";
 
 struct OdooLint {
     cached: Option<String>,

@@ -1,7 +1,7 @@
 # Roadmap
 
 Ideas that are planned but not built yet. Suggestions are welcome as
-[issues](https://github.com/bosd/odoo-lint/issues).
+[issues](https://github.com/GetFluvo/odoo-lint/issues).
 
 ## Editor extensions
 

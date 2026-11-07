@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/bosd/odoo-lint/main/docs/_static/logo.svg" alt="odoo-lint logo" width="160">
+  <img src="https://raw.githubusercontent.com/GetFluvo/odoo-lint/main/docs/_static/logo.svg" alt="odoo-lint logo" width="160">
 </p>
 
 <h1 align="center">odoo-lint</h1>
@@ -7,10 +7,10 @@
 <p align="center">
   <a href="https://pypi.org/project/odoo-linter/"><img src="https://img.shields.io/pypi/v/odoo-linter?style=flat-square&logo=pypi&logoColor=white&label=PyPI&color=ef662f" alt="PyPI"></a>
   <a href="https://crates.io/crates/odoo-lint"><img src="https://img.shields.io/crates/v/odoo-lint?style=flat-square&logo=rust&logoColor=white&label=crates.io&color=ef662f" alt="crates.io"></a>
-  <a href="https://github.com/bosd/odoo-lint/actions/workflows/tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/bosd/odoo-lint/tests.yml?branch=main&style=flat-square&logo=githubactions&logoColor=white&label=tests" alt="Tests"></a>
-  <a href="https://odoo-lint.readthedocs.io/en/latest/parity.html"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbosd%2Fodoo-lint%2Fmain%2Fdocs%2F_static%2Fparity.json&style=flat-square" alt="OCA parity"></a>
+  <a href="https://github.com/GetFluvo/odoo-lint/actions/workflows/tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/GetFluvo/odoo-lint/tests.yml?branch=main&style=flat-square&logo=githubactions&logoColor=white&label=tests" alt="Tests"></a>
+  <a href="https://odoo-lint.readthedocs.io/en/latest/parity.html"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FGetFluvo%2Fodoo-lint%2Fmain%2Fdocs%2F_static%2Fparity.json&style=flat-square" alt="OCA parity"></a>
   <a href="https://odoo-lint.readthedocs.io/"><img src="https://img.shields.io/readthedocs/odoo-lint?style=flat-square&logo=readthedocs&logoColor=white&label=docs" alt="Documentation"></a>
-  <a href="https://github.com/bosd/odoo-lint/blob/main/LICENSE"><img src="https://img.shields.io/github/license/bosd/odoo-lint?style=flat-square&color=7e5a8c" alt="License: MIT"></a>
+  <a href="https://github.com/GetFluvo/odoo-lint/blob/main/LICENSE"><img src="https://img.shields.io/github/license/GetFluvo/odoo-lint?style=flat-square&color=7e5a8c" alt="License: MIT"></a>
 </p>
 
 <!-- start-docs -->
@@ -24,7 +24,7 @@ names, same messages, same results on their own test suites. It also warns about
 as packages or database dumps committed by accident.
 
 <p align="center">
-  <img alt="Bar chart: linting OCA/sale-workflow takes 0.10s with odoo-lint and 25.8s with pylint-odoo" src="https://raw.githubusercontent.com/bosd/odoo-lint/main/docs/_static/benchmark.svg" width="640">
+  <img alt="Bar chart: linting OCA/sale-workflow takes 0.10s with odoo-lint and 25.8s with pylint-odoo" src="https://raw.githubusercontent.com/GetFluvo/odoo-lint/main/docs/_static/benchmark.svg" width="640">
 </p>
 
 <p align="center"><i>Linting all of OCA/sale-workflow 18.0, as OCA's pre-commit hook runs pylint-odoo. See <a href="https://odoo-lint.readthedocs.io/en/latest/benchmarks.html">benchmarks</a>.</i></p>
@@ -85,10 +85,10 @@ target-version = "17.0"
 ```
 
 For AI coding agents there is an MCP server (`odl mcp`) and a post-edit hook,
-packaged as plugins for Claude Code (`/plugin marketplace add bosd/odoo-lint`),
+packaged as plugins for Claude Code (`/plugin marketplace add GetFluvo/odoo-lint`),
 DeepSeek Harness and OpenCode.
 
-<!-- mcp-name: io.github.bosd/odoo-lint -->
+<!-- mcp-name: io.github.GetFluvo/odoo-lint -->
 
 New to odoo-lint? Start with
 [Getting started](https://odoo-lint.readthedocs.io/en/latest/getting-started.html);

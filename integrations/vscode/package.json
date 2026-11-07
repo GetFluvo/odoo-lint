@@ -9,10 +9,10 @@
   "homepage": "https://odoo-lint.readthedocs.io/en/latest/editors.html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bosd/odoo-lint.git",
+    "url": "https://github.com/GetFluvo/odoo-lint.git",
     "directory": "integrations/vscode"
   },
-  "bugs": "https://github.com/bosd/odoo-lint/issues",
+  "bugs": "https://github.com/GetFluvo/odoo-lint/issues",
   "categories": [
     "Linters"
   ],

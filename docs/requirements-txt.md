@@ -30,7 +30,7 @@ With pre-commit, the `odoo-lint-requirements` hook of
 when a manifest or `pyproject.toml` changes:
 
 ```yaml
-- repo: https://github.com/bosd/odoo-lint-pre-commit
+- repo: https://github.com/GetFluvo/odoo-lint-pre-commit
   rev: v0.1.0a20
   hooks:
     - id: odoo-lint-requirements
