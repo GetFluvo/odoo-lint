@@ -41,6 +41,12 @@ Or from a shell: `claude plugin marketplace add GetFluvo/odoo-lint` and
 `claude plugin install odoo-lint@odoo-lint`. The plugin is in
 [`integrations/claude-code`](https://github.com/GetFluvo/odoo-lint/tree/main/integrations/claude-code).
 
+Anthropic's plugin directory lists only the skill, from
+[`integrations/claude-directory`](https://github.com/GetFluvo/odoo-lint/tree/main/integrations/claude-directory):
+the directory accepts hooks and local MCP servers only from organizations it
+has verified. That edition runs nothing itself; Claude runs an installed
+`odl`.
+
 ## DeepSeek Harness (dsh)
 
 [`integrations/dsh`](https://github.com/GetFluvo/odoo-lint/tree/main/integrations/dsh)

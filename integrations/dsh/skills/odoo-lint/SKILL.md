@@ -14,7 +14,8 @@ such as Bootstrap 4 classes in Odoo 15.0 and later.
 
 ## Tools
 
-The `odoo-lint` MCP server has four tools. Without it, use the CLI.
+The `odoo-lint` MCP server has four tools. Without it, use the CLI; if `odl`
+is missing, install it with `uv tool install odoo-linter`.
 
 | Task              | MCP tool                                    | CLI                                      |
 | ----------------- | ------------------------------------------- | ---------------------------------------- |
@@ -27,8 +28,8 @@ The `odoo-lint` MCP server has four tools. Without it, use the CLI.
 
 The project's configuration (`[tool.odoo-lint]` in `pyproject.toml`, or
 `odoo-lint.toml`) sets the Odoo version and rules; pass `odoo_version` only
-when there is none. After every edit of an addon file a hook lints it and
-reports what it finds.
+when there is none. Where a hook lints each addon file after an edit, it
+reports what it finds; otherwise run `odl check` on the files you changed.
 
 ## Working with findings
 
