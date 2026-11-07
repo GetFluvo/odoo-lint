@@ -8,7 +8,7 @@ the prebuilt wheel, with a tag for every release:
 ```yaml
 repos:
   - repo: https://github.com/GetFluvo/odoo-lint-pre-commit
-    rev: v0.1.0a20
+    rev: v0.1.0a21
     hooks:
       - id: odoo-lint
         # args: [--fix]   # also apply the safe fixes
@@ -87,7 +87,7 @@ findings as annotations, or with `sarif: true` sends them to code scanning:
     persist-credentials: false
 - uses: GetFluvo/odoo-lint-action@v1
   with:
-    version: 0.1.0a20 # optional, the latest release otherwise
+    version: 0.1.0a21 # optional, the latest release otherwise
 ```
 
 The steps below do the same without the action.

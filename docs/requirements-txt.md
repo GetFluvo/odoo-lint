@@ -31,7 +31,7 @@ when a manifest or `pyproject.toml` changes:
 
 ```yaml
 - repo: https://github.com/GetFluvo/odoo-lint-pre-commit
-  rev: v0.1.0a20
+  rev: v0.1.0a21
   hooks:
     - id: odoo-lint-requirements
 ```
