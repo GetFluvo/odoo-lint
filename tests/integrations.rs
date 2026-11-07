@@ -22,6 +22,41 @@ fn shared_files_are_identical() {
             "integrations/dsh/{file} differs from the Claude Code copy"
         );
     }
+    assert_eq!(
+        read("integrations/claude-code/skills/odoo-lint/SKILL.md"),
+        read("integrations/claude-directory/skills/odoo-lint/SKILL.md"),
+        "integrations/claude-directory/skills/odoo-lint/SKILL.md differs from the Claude Code copy"
+    );
+}
+
+#[test]
+fn directory_edition_runs_nothing() {
+    // Anthropic's directory refuses hooks, local MCP servers, bin/ and
+    // scripts from organizations it has not verified, so the edition it
+    // lists is the skill alone.
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("integrations/claude-directory");
+    let mut files = Vec::new();
+    let mut dirs = vec![root.clone()];
+    while let Some(dir) = dirs.pop() {
+        for entry in fs::read_dir(&dir).unwrap() {
+            let path = entry.unwrap().path();
+            if path.is_dir() {
+                dirs.push(path);
+            } else {
+                files.push(path.strip_prefix(&root).unwrap().to_string_lossy().replace('\\', "/"));
+            }
+        }
+    }
+    files.sort();
+    assert_eq!(
+        files,
+        [
+            ".claude-plugin/icon.png",
+            ".claude-plugin/plugin.json",
+            "README.md",
+            "skills/odoo-lint/SKILL.md",
+        ]
+    );
 }
 
 #[test]
@@ -51,6 +86,7 @@ fn plugins_belong_to_this_release() {
         .replace("-rc.", "rc");
     for path in [
         "integrations/claude-code/.claude-plugin/plugin.json",
+        "integrations/claude-directory/.claude-plugin/plugin.json",
         "integrations/dsh/package.json",
     ] {
         assert_eq!(json(path)["version"], version, "{path}: version");
