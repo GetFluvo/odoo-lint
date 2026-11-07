@@ -2,12 +2,12 @@
 
 ## pre-commit
 
-[odoo-lint-pre-commit](https://github.com/bosd/odoo-lint-pre-commit) installs
+[odoo-lint-pre-commit](https://github.com/GetFluvo/odoo-lint-pre-commit) installs
 the prebuilt wheel, with a tag for every release:
 
 ```yaml
 repos:
-  - repo: https://github.com/bosd/odoo-lint-pre-commit
+  - repo: https://github.com/GetFluvo/odoo-lint-pre-commit
     rev: v0.1.0a20
     hooks:
       - id: odoo-lint
@@ -85,7 +85,7 @@ findings as annotations, or with `sarif: true` sends them to code scanning:
 - uses: actions/checkout@v6
   with:
     persist-credentials: false
-- uses: bosd/odoo-lint-action@v1
+- uses: GetFluvo/odoo-lint-action@v1
   with:
     version: 0.1.0a20 # optional, the latest release otherwise
 ```

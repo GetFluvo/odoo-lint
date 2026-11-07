@@ -1,6 +1,6 @@
 # odoo-lint for VS Code
 
-Lints Odoo addons as you type with [odoo-lint](https://github.com/bosd/odoo-lint)
+Lints Odoo addons as you type with [odoo-lint](https://github.com/GetFluvo/odoo-lint)
 (`odl`): pylint-odoo's checks, OCA's manifest, XML and translation (`.po`/`.pot`)
 checks, translation files Odoo cannot load, and leftovers of Odoo upgrades.
 

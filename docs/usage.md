@@ -211,12 +211,12 @@ See [AI coding agents](ai.md).
 
 ## In pre-commit
 
-[odoo-lint-pre-commit](https://github.com/bosd/odoo-lint-pre-commit) installs
+[odoo-lint-pre-commit](https://github.com/GetFluvo/odoo-lint-pre-commit) installs
 the prebuilt wheel, with a tag for every release:
 
 ```yaml
 repos:
-  - repo: https://github.com/bosd/odoo-lint-pre-commit
+  - repo: https://github.com/GetFluvo/odoo-lint-pre-commit
     rev: v0.1.0a20
     hooks:
       - id: odoo-lint

@@ -1,6 +1,6 @@
 # odoo-lint for Claude Code
 
-Lints and fixes Odoo addons with [odoo-lint](https://github.com/bosd/odoo-lint)
+Lints and fixes Odoo addons with [odoo-lint](https://github.com/GetFluvo/odoo-lint)
 (`odl`): pylint-odoo's checks, OCA's manifest, XML and PO checks, translation
 files Odoo cannot load, and upgrade checks for newer Odoo versions.
 
@@ -17,7 +17,7 @@ The plugin has three parts:
 ## Install
 
 ```text
-/plugin marketplace add bosd/odoo-lint
+/plugin marketplace add GetFluvo/odoo-lint
 /plugin install odoo-lint@odoo-lint
 ```
 

@@ -80,7 +80,7 @@ With pre-commit, the `odoo-lint-readme` hook of
 staged `readme/*.md` fragments and manifests:
 
 ```yaml
-- repo: https://github.com/bosd/odoo-lint-pre-commit
+- repo: https://github.com/GetFluvo/odoo-lint-pre-commit
   rev: v0.1.0a20
   hooks:
     - id: odoo-lint-readme

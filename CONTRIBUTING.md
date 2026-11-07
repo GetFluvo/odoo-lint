@@ -2,7 +2,7 @@
 
 Bug reports, false positives and differences with pylint-odoo or OCA's
 pre-commit hooks are welcome as
-[issues](https://github.com/bosd/odoo-lint/issues). Include the `odl`
+[issues](https://github.com/GetFluvo/odoo-lint/issues). Include the `odl`
 version (`odl --version`), the command and a minimal module that shows the
 problem.
 

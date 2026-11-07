@@ -24,9 +24,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/bosd/odoo-lint"
-Repository = "https://github.com/bosd/odoo-lint"
-Changelog = "https://github.com/bosd/odoo-lint/releases"
+Homepage = "https://github.com/GetFluvo/odoo-lint"
+Repository = "https://github.com/GetFluvo/odoo-lint"
+Changelog = "https://github.com/GetFluvo/odoo-lint/releases"
 
 [dependency-groups]
 dev = [

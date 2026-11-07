@@ -19,7 +19,7 @@ html_css_files = ["custom.css"]
 # Base scale; custom.css swaps in the exact brand colours.
 html_theme_options = {
     "accent_color": "orange",
-    "github_url": "https://github.com/bosd/odoo-lint",
+    "github_url": "https://github.com/GetFluvo/odoo-lint",
 }
 
 myst_enable_extensions = [

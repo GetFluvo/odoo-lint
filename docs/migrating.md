@@ -23,7 +23,7 @@ generator hooks. This page maps an OCA-style `.pre-commit-config.yaml` and
 | `ruff`, `ruff-format`                                 | none                                                    | odoo-lint has no general Python style checks. Keep ruff.                                                                                      |
 
 All hooks come from
-[odoo-lint-pre-commit](https://github.com/bosd/odoo-lint-pre-commit); see
+[odoo-lint-pre-commit](https://github.com/GetFluvo/odoo-lint-pre-commit); see
 [Pre-commit, hk and CI](integrations.md#pre-commit). The `odoo-lint` hook
 covers pylint-odoo, `oca-checks-odoo-module` and `oca-checks-po` in one run,
 on `.py`, `.xml`, `.po`, `.pot` and `.js` files.
@@ -157,7 +157,7 @@ list in `select` and run the advisory hook with `--select ALL`:
   [Formatting XML](format.md).
 - **Parity.** The [parity page](parity.md) compares odoo-lint with each OCA
   tool on its own test repository, check by check. Please
-  [report](https://github.com/bosd/odoo-lint/issues) any other difference.
+  [report](https://github.com/GetFluvo/odoo-lint/issues) any other difference.
 
 ## `.pre-commit-config.yaml`
 
@@ -202,7 +202,7 @@ Add odoo-lint next to the existing hooks, without failing commits, and
 compare its findings with pylint-odoo's for a while:
 
 ```yaml
-- repo: https://github.com/bosd/odoo-lint-pre-commit
+- repo: https://github.com/GetFluvo/odoo-lint-pre-commit
   rev: v0.1.0a20
   hooks:
     - id: odoo-lint-advisory
@@ -229,7 +229,7 @@ repos:
             --org-name=OCA,
             --repo-name=server-tools,
           ]
-  - repo: https://github.com/bosd/odoo-lint-pre-commit
+  - repo: https://github.com/GetFluvo/odoo-lint-pre-commit
     rev: v0.1.0a20
     hooks:
       - id: odoo-lint

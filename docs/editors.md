@@ -72,7 +72,7 @@ open one are found without it.
 ## Zed
 
 The extension in
-[`integrations/zed`](https://github.com/bosd/odoo-lint/tree/main/integrations/zed)
+[`integrations/zed`](https://github.com/GetFluvo/odoo-lint/tree/main/integrations/zed)
 starts `odl server` for Python, XML and PO files. Zed knows XML and PO
 files through extensions of their own: install `XML` and `PO` from the
 registry too, or odoo-lint only sees the Python files. It uses, in order,

@@ -1,6 +1,6 @@
 # odoo-lint for DeepSeek Harness
 
-Lints and fixes Odoo addons with [odoo-lint](https://github.com/bosd/odoo-lint)
+Lints and fixes Odoo addons with [odoo-lint](https://github.com/GetFluvo/odoo-lint)
 (`odl`) in [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh): pylint-odoo's
 checks, OCA's manifest, XML and PO checks, translation files Odoo cannot load,
 and upgrade checks for newer Odoo versions.

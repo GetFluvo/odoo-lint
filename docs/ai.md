@@ -24,7 +24,7 @@ run the odoo-lint release with their version through `uvx`.
 
 From 0.1.0-alpha.5 on, the MCP server is in the
 [MCP Registry](https://registry.modelcontextprotocol.io) as
-`io.github.bosd/odoo-lint`, for clients that install servers from there.
+`io.github.GetFluvo/odoo-lint`, for clients that install servers from there.
 They run it as `uvx odoo-linter mcp`.
 
 ## Claude Code
@@ -33,17 +33,17 @@ The plugin bundles the MCP server, the post-edit hook and a skill that tells
 Claude when to use them and how translations get loaded:
 
 ```text
-/plugin marketplace add bosd/odoo-lint
+/plugin marketplace add GetFluvo/odoo-lint
 /plugin install odoo-lint@odoo-lint
 ```
 
-Or from a shell: `claude plugin marketplace add bosd/odoo-lint` and
+Or from a shell: `claude plugin marketplace add GetFluvo/odoo-lint` and
 `claude plugin install odoo-lint@odoo-lint`. The plugin is in
-[`integrations/claude-code`](https://github.com/bosd/odoo-lint/tree/main/integrations/claude-code).
+[`integrations/claude-code`](https://github.com/GetFluvo/odoo-lint/tree/main/integrations/claude-code).
 
 ## DeepSeek Harness (dsh)
 
-[`integrations/dsh`](https://github.com/bosd/odoo-lint/tree/main/integrations/dsh)
+[`integrations/dsh`](https://github.com/GetFluvo/odoo-lint/tree/main/integrations/dsh)
 is a dsh bundle with the same three parts: the MCP server, the hook (through
 dsh's Claude Code hooks bridge) and the skill, published on npm as
 `dsh-odoo-lint`. Install it into a profile:
@@ -70,7 +70,7 @@ Register the MCP server in `opencode.json`:
 ```
 
 For linting after every edit, copy
-[`integrations/opencode/odoo-lint.js`](https://github.com/bosd/odoo-lint/blob/main/integrations/opencode/odoo-lint.js)
+[`integrations/opencode/odoo-lint.js`](https://github.com/GetFluvo/odoo-lint/blob/main/integrations/opencode/odoo-lint.js)
 to `.opencode/plugins/` (or `~/.config/opencode/plugins/`): it appends the
 findings to the result of the edit, so the model sees them. Copy the skill
 from `integrations/claude-code/skills/odoo-lint/` to `.opencode/skills/` as
