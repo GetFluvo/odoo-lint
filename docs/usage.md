@@ -9,6 +9,7 @@ odl check [PATHS]... [--version VERSION] [--config FILE]
           [--select RULES] [--ignore RULES] [--output-format FORMAT]
           [--fix] [--unsafe-fixes] [--diff] [--force-exclude] [-v] [-q]
           [--exit-zero] [--addons-path DIRS] [--statistics] [--show-fixes]
+          [--crab]
 ```
 
 `PATHS`
@@ -88,6 +89,12 @@ array of objects with `code`, `name`, `count` and `fixable`.
 12	W8113	[*] attribute-string-redundant
  3	C8101	    manifest-required-author
 ```
+
+`--crab`
+: When nothing is found, Ferris rolls a lint roller over the terminal before
+the summary. Only with text output on a terminal; never in CI (`CI` is set),
+with `--quiet` or when the output goes to a file or pipe. The width follows
+`COLUMNS`, else 80.
 
 Findings, diffs and reports go to stdout, the summary of `odl check` too;
 warnings, errors and the progress of commands that write files (`odl format`,
