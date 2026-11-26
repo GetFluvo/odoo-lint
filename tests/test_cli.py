@@ -531,3 +531,11 @@ def test_findings_across_modules_keep_the_given_path(tmp_path: Path) -> None:
         cwd=tmp_path,
     )
     assert result.stdout.startswith(str(Path("addons/sale_x/models.py"))), result
+
+
+def test_crab_only_on_a_terminal(project: Path) -> None:
+    """`--crab` plays nothing when stdout is a pipe."""
+    module = make_module(project, "acme_sale", "Acme Corp")
+    clean = run_odl("check", str(module), "--select", "C8116", "--crab")
+    assert clean.returncode == 0
+    assert clean.stdout == "\u2728 No violations found!\n"

@@ -3,7 +3,7 @@ use odoo_lint::diagnostics::Violation;
 use odoo_lint::fix::{Applicability, FixMode};
 use odoo_lint::output::{self, OutputFormat};
 use odoo_lint::settings::{CliOverrides, Loaded, Settings};
-use odoo_lint::{fixer, linter, rules};
+use odoo_lint::{crab, fixer, linter, rules};
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
@@ -138,6 +138,9 @@ struct CheckArgs {
     /// With --fix or --diff, list the fixes per file and rule
     #[arg(long)]
     show_fixes: bool,
+    /// When nothing is found, Ferris rolls its lint roller over the terminal
+    #[arg(long)]
+    crab: bool,
 }
 
 /// The options of `odl upgrade-check`.
@@ -399,6 +402,10 @@ fn check(args: CheckArgs) -> Outcome {
             }
         }
         if violations.is_empty() {
+            if args.crab && crab::enabled() {
+                // A broken terminal only spoils the show, not the check.
+                let _ = crab::sweep(&mut std::io::stdout(), crab::columns(), crab::FRAME);
+            }
             println!("✨ No violations found!");
         } else {
             println!(
